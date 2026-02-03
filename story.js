@@ -57,21 +57,21 @@ const STORY = {
       speaker: "紧急警报",
       text: "NEXUS的搜索无人机群正在接近！我们必须做出选择：战斗还是转移？",
       left: { text: "全员撤离", effects: { military: -10, resources: -10, morale: -5 } },
-      right: { text: "伏击它们", effects: { military: 10, tech: 5 } }
+      right: { text: "伏击它们", effects: { military: 25, tech: 5, resources: -15 } }
     },
     {
       id: 9,
       speaker: "黑客·幽灵",
       text: "我找到了NEXUS的一个后门漏洞。但如果入侵失败，它会直接定位我们的位置。",
-      left: { text: "风险太大", effects: { tech: -5 } },
-      right: { text: "试试看", effects: { tech: 20, morale: -10 } }
+      left: { text: "风险太大", effects: { tech: -5, morale: 5 } },
+      right: { text: "试试看", effects: { tech: 35, morale: -20 } }
     },
     {
       id: 10,
       speaker: "叛徒情报",
       text: "有人告诉NEXUS我们的位置！内部审查显示，新来的难民中可能有间谍。",
-      left: { text: "驱逐所有新人", effects: { morale: -20, military: 5 } },
-      right: { text: "相信大家", effects: { morale: 10, military: -10 } }
+      left: { text: "驱逐所有新人", effects: { morale: -35, military: 10 } },
+      right: { text: "相信大家", effects: { morale: 15, military: -15, resources: -5 } }
     },
     {
       id: 11,

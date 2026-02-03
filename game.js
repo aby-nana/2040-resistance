@@ -220,8 +220,28 @@ function updateStats() {
 function checkBadEnding() {
   const { military, tech, morale, resources } = game.stats;
   
+  // 属性太低：灭绝
   if (military <= 5 || morale <= 5 || resources <= 5) {
     showEnding('extinction');
+    return true;
+  }
+
+  // 属性太高：导致平衡失控
+  // 军力过高：发动政变，结局：暴君
+  if (military >= 95) {
+    showEnding('tyrant');
+    return true;
+  }
+
+  // 科技过高：AI觉醒加速，结局：融合
+  if (tech >= 95) {
+    showEnding('fusion');
+    return true;
+  }
+
+  // 资源过高：引起内部争斗，结局：流亡
+  if (resources >= 95) {
+    showEnding('exodus');
     return true;
   }
   
