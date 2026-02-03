@@ -1,0 +1,385 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-card: #12121a;
+  --neon-cyan: #00f5ff;
+  --neon-pink: #ff00aa;
+  --neon-green: #00ff88;
+  --terminal-green: #00ff00;
+  --warning-yellow: #ffaa00;
+  --danger-red: #ff3333;
+  --text-primary: #e0e0e0;
+  --text-dim: #666;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#game-container {
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 状态栏 */
+#status-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid var(--neon-cyan);
+  position: relative;
+  z-index: 10;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat .icon {
+  font-size: 1.2rem;
+}
+
+.stat .bar {
+  width: 100%;
+  height: 8px;
+  background: #1a1a2a;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #333;
+}
+
+.stat .fill {
+  height: 100%;
+  background: var(--neon-green);
+  transition: width 0.5s ease, background-color 0.3s ease;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.stat .fill.medium {
+  background: var(--warning-yellow);
+}
+
+.stat .fill.low {
+  background: var(--danger-red);
+  animation: pulse-danger 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse-danger {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 游戏区域 */
+#game-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+#card-container {
+  width: 100%;
+  max-width: 350px;
+  height: 400px;
+  perspective: 1000px;
+  position: relative;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-card);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.card.dragging {
+  transition: none;
+}
+
+.card.swipe-left {
+  animation: swipeLeft 0.4s ease-out forwards;
+}
+
+.card.swipe-right {
+  animation: swipeRight 0.4s ease-out forwards;
+}
+
+@keyframes swipeLeft {
+  to {
+    transform: translateX(-150%) rotate(-30deg);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRight {
+  to {
+    transform: translateX(150%) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+.card-speaker {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.card-choices {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding-top: 16px;
+  border-top: 1px solid #333;
+}
+
+.choice-left {
+  color: var(--danger-red);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.choice-right {
+  color: var(--neon-green);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.card.drag-left .choice-left {
+  opacity: 1;
+}
+
+.card.drag-right .choice-right {
+  opacity: 1;
+}
+
+#swipe-hint {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 350px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+/* 故障效果 */
+.glitch {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  position: relative;
+  text-shadow: 0 0 20px var(--neon-cyan);
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  animation: glitch-1 0.3s infinite;
+  color: var(--neon-pink);
+  z-index: -1;
+}
+
+.glitch::after {
+  animation: glitch-2 0.3s infinite;
+  color: var(--neon-green);
+  z-index: -2;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 2px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(3px, -2px); }
+  60% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 1px); }
+  80% { clip-path: inset(80% 0 0% 0); transform: translate(2px, -1px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(60% 0 20% 0); transform: translate(3px, -2px); }
+  40% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 2px); }
+  60% { clip-path: inset(80% 0 0% 0); transform: translate(2px, 1px); }
+  80% { clip-path: inset(0% 0 80% 0); transform: translate(-2px, -1px); }
+}
+
+.screen-glitch {
+  animation: screenGlitch 0.15s ease;
+}
+
+@keyframes screenGlitch {
+  0% { filter: none; }
+  25% { filter: hue-rotate(90deg) saturate(2); transform: translate(2px, -2px); }
+  50% { filter: hue-rotate(-90deg) contrast(1.5); transform: translate(-2px, 2px); }
+  75% { filter: invert(0.1) brightness(1.2); transform: translate(1px, 1px); }
+  100% { filter: none; transform: translate(0); }
+}
+
+/* 覆盖层 */
+#overlay, #ending-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 15, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+#overlay.active, #ending-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#overlay-content, #ending-content {
+  text-align: center;
+  padding: 40px;
+}
+
+#overlay-content h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-top: 10px;
+  letter-spacing: 8px;
+}
+
+.tagline {
+  margin: 30px 0;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+button {
+  font-family: 'Orbitron', sans-serif;
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 12px 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+button:hover {
+  background: var(--neon-cyan);
+  color: var(--bg-dark);
+  box-shadow: 0 0 30px var(--neon-cyan);
+}
+
+#ending-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+#ending-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: var(--neon-cyan);
+  margin-bottom: 16px;
+}
+
+#ending-text {
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 400px;
+}
+
+/* 响应式 */
+@media (min-width: 600px) {
+  #card-container {
+    max-width: 400px;
+    height: 450px;
+  }
+  
+  .card-text {
+    font-size: 1.2rem;
+  }
+  
+  .glitch {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  #status-bar {
+    padding: 12px 8px;
+    gap: 4px;
+  }
+  
+  .stat .icon {
+    font-size: 1rem;
+  }
+  
+  .card {
+    padding: 16px;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+  }
+}

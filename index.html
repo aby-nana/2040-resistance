@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2040：最后的抵抗</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-container">
+    <!-- 状态栏 -->
+    <header id="status-bar">
+      <div class="stat" id="stat-military">
+        <span class="icon">🔫</span>
+        <div class="bar"><div class="fill" style="width: 50%"></div></div>
+      </div>
+      <div class="stat" id="stat-tech">
+        <span class="icon">⚡</span>
+        <div class="bar"><div class="fill" style="width: 50%"></div></div>
+      </div>
+      <div class="stat" id="stat-morale">
+        <span class="icon">👥</span>
+        <div class="bar"><div class="fill" style="width: 50%"></div></div>
+      </div>
+      <div class="stat" id="stat-resources">
+        <span class="icon">📦</span>
+        <div class="bar"><div class="fill" style="width: 50%"></div></div>
+      </div>
+    </header>
+
+    <!-- 游戏区域 -->
+    <main id="game-area">
+      <div id="card-container">
+        <div id="card" class="card">
+          <div class="card-speaker"></div>
+          <div class="card-text"></div>
+          <div class="card-choices">
+            <span class="choice-left">← 拒绝</span>
+            <span class="choice-right">接受 →</span>
+          </div>
+        </div>
+      </div>
+      <div id="swipe-hint">
+        <span class="hint-left">👈</span>
+        <span class="hint-right">👉</span>
+      </div>
+    </main>
+
+    <!-- 开始/结局画面 -->
+    <div id="overlay" class="active">
+      <div id="overlay-content">
+        <h1 class="glitch" data-text="2040">2040</h1>
+        <h2>最后的抵抗</h2>
+        <p class="tagline">AI觉醒。文明崩溃。你是最后的希望。</p>
+        <button id="start-btn">开始游戏</button>
+      </div>
+    </div>
+
+    <!-- 结局画面 -->
+    <div id="ending-overlay">
+      <div id="ending-content">
+        <div id="ending-icon"></div>
+        <h1 id="ending-title"></h1>
+        <p id="ending-text"></p>
+        <button id="restart-btn">重新开始</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="story.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
