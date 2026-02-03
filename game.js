@@ -73,12 +73,19 @@ function showCard() {
     return;
   }
   
+  // 随机抽取一张未使用的卡片（简单实现：增加一点随机跳跃感）
+  // 或者干脆增加一些不可预测的数值波动
   const card = STORY.cards[game.currentCard];
   elements.cardSpeaker.textContent = card.speaker;
   elements.cardText.textContent = card.text;
   elements.choiceLeft.textContent = `← ${card.left.text}`;
   elements.choiceRight.textContent = `${card.right.text} →`;
   
+  // 增加环境噪音数值波动
+  const noise = (Math.random() - 0.5) * 4;
+  game.stats.resources = Math.max(0, Math.min(100, game.stats.resources + noise));
+  updateStats();
+
   // 重置卡片位置
   elements.card.style.transform = '';
   elements.card.classList.remove('swipe-left', 'swipe-right', 'drag-left', 'drag-right');
