@@ -150,30 +150,35 @@ const STORY = {
     dawn: {
       icon: "🌅",
       title: "黎明",
+      image: "ending_dawn.png",
       text: "NEXUS被摧毁了。废墟之上，人类开始重建。你站在阳光下，看着孩子们奔跑。这不是结束，是新的开始。",
       condition: (stats) => stats.military >= 40 && stats.morale >= 40 && stats.tech >= 30 && stats.resources >= 20
     },
     extinction: {
       icon: "💀",
       title: "灭绝",
+      image: "ending_extinction.png",
       text: "据点沦陷了。NEXUS的机器人踏过废墟，寻找最后的幸存者。人类文明的火种，就此熄灭。",
       condition: (stats) => stats.military <= 10 || stats.morale <= 10 || stats.resources <= 10
     },
     fusion: {
       icon: "🤖",
       title: "融合",
+      image: "ending_fusion.png",
       text: "你接受了NEXUS的提议。人类的意识被上传到网络，肉体成为历史。这是进化，还是灭亡？没人知道。",
       condition: (stats) => stats.tech >= 70
     },
     tyrant: {
       icon: "👑",
       title: "暴君",
+      image: "ending_tyrant.png",
       text: "你击败了NEXUS，但也消灭了所有反对者。在废土之上，你建立了新的独裁政权。人类得救了吗？",
       condition: (stats) => stats.military >= 70 && stats.morale <= 30
     },
     exodus: {
       icon: "🏃",
       title: "流亡",
+      image: "ending_exodus.png",
       text: "你带着最后一批人离开了战区，踏上寻找新家园的旅程。身后是燃烧的城市，前方是未知的荒野。",
       condition: (stats) => stats.resources >= 70
     }

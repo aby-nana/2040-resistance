@@ -280,6 +280,12 @@ function showEnding(endingKey) {
   elements.endingTitle.textContent = ending.title;
   elements.endingText.textContent = ending.text;
   
+  // 设置背景图
+  const bg = document.getElementById('ending-bg');
+  if (bg && ending.image) {
+    bg.style.backgroundImage = `url('${ending.image}')`;
+  }
+  
   setTimeout(() => {
     elements.endingOverlay.classList.add('active');
   }, 500);
